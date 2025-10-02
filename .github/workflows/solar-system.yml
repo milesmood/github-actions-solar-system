@@ -21,22 +21,14 @@ jobs:
         env:
           MONGO_INITDB_ROOT_USERNAME: non-prod-user
           MONGO_INITDB_ROOT_PASSWORD: non-prod-password
-        options: >-
-          --health-cmd "mongosh --eval 'db.adminCommand(\"ping\")'" 
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
     env:
       MONGO_USERNAME: non-prod-user
       MONGO_PASSWORD: non-prod-password
-      #MONGO_URI: mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@localhost:27017/solar_system?authSource=admin
+
     strategy:
       matrix:
         nodejs_version: [18, 20]
         operating_system: [ubuntu-latest]
-        exclude:
-          - nodejs_version: 18
-            operating_system: macos-latest
 
     name: Unit Testing
     runs-on: ${{matrix.operating_system}}
@@ -87,11 +79,6 @@ jobs:
         env:
           MONGO_INITDB_ROOT_USERNAME: non-prod-user
           MONGO_INITDB_ROOT_PASSWORD: non-prod-password
-        options: >-
-          --health-cmd "mongosh --eval 'db.adminCommand(\"ping\")'" 
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
       
     steps:
       - name: checkout Repository
@@ -206,4 +193,3 @@ jobs:
         echo "kubectl returned $?"
         kubectl -n default get pod
         sleep 10        
-
