@@ -6,6 +6,11 @@ on:
     branches:
       - main
       - 'feature/*'
+
+env:
+  MONGO_USERNAME: ${{vars.MONGO_USERNAME}}
+  MONGO_PASSWORD: ${{secrets.MONGO_PASSWORD}}
+  MONGO_URI: 'mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@localhost:27017/solar_system?authSource=admin'
     
 jobs:
     unit-testing:
@@ -31,3 +36,4 @@ jobs:
           with:
             name: Mocha-Test-Result
             path: test-results.xml
+
