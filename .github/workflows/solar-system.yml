@@ -59,16 +59,13 @@ jobs:
           path: node_modules
           key: ${{runner.os}}-node-modules-${{hashFiles('package-lock.json')}}
 
-
       - name: Install all Dependencies
         run: npm install
-
-      - name: Seed database
-        run: npm run seed
 
       - name: Unit Testing
         id: nodejs-unit-testing-step
         run: npm test 
+
       - name: Archive Test Result
         if : always()
         uses: actions/upload-artifact@v4
@@ -209,5 +206,4 @@ jobs:
         echo "kubectl returned $?"
         kubectl -n default get pod
         sleep 10        
-
 
